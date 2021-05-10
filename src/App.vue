@@ -1,20 +1,20 @@
 <template>
-    <v-app>
-        <IndexNavigation></IndexNavigation>
-        <v-content transition="slide-x-transition">
-            <router-view></router-view>
-        </v-content>
-    </v-app>
+  <v-app>
+    <Home />
+  </v-app>
 </template>
 
 <script>
-import IndexNavigation from '@/components/IndexNavigation';
+import Home from "@/views/Navigation";
+import walletsApi from "@/models/walletsApi"
+
+let teste = walletsApi.listWallets().then(data => {
+  console.log(data);
+})
 
 export default {
-    name: 'App',
-    components: {
-        IndexNavigation
-    }
+  name: 'App',
+  components: { Home }
 };
 </script>
 

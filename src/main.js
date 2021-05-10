@@ -3,7 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
-import firebase from 'firebase';
+import firebase from "firebase";
+import "@/assets/global.css"
+
 const config = {
   apiKey: "<youKeyHere>",
   authDomain: "<youKeyHere>",
