@@ -22,7 +22,7 @@
     </span>
 
     <v-navigation-drawer
-        absolute
+        fixed
         :expand-on-hover="$vuetify.breakpoint.mdAndUp"
         :permanent="$vuetify.breakpoint.mdAndUp"
         v-model="drawer"
