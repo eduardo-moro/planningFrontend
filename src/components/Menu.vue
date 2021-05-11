@@ -2,7 +2,22 @@
   <div>
     <span class="hidden-md-and-up">
       <v-app-bar app color="secondary lighten-1">
-          <v-app-bar-nav-icon @click=toggleMe style="color: white" />
+        <v-app-bar-nav-icon @click=toggleMe style="color: white"/>
+        <v-app-bar-title style="color:white;">{{ appTitle }}</v-app-bar-title>
+        <v-spacer/>
+        <template v-for="(item, index) in mainItems">
+
+          <v-btn
+              :key="index"
+              link
+              icon
+              text
+              dark
+              :href="item.link"
+          >
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-btn>
+        </template>
       </v-app-bar>
     </span>
 
@@ -16,8 +31,14 @@
         color="secondary lighten-1"
         disable-resize-watcher
     >
-      <v-list nav dense class="d-flex flex-column">
-        <template v-for="(item, index) in items">
+      <v-list
+          nav
+          dense
+          class="d-flex flex-column"
+      >
+          <v-icon>mdi-currency-usd</v-icon>
+        <v-divider />
+        <template v-for="(item, index) in mainItems">
           <v-list-item link class="px-2" :key="index" :href="item.link">
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
@@ -27,7 +48,8 @@
             </v-list-item-title>
           </v-list-item>
         </template>
-        <v-list-item class=" px-2">
+        <v-divider/>
+        <v-list-item class="px-2">
           <v-list-item-icon>
             <v-icon>mdi-logout</v-icon>
           </v-list-item-icon>
@@ -50,9 +72,9 @@ export default {
       appTitle: 'Planner',
       drawer: false,
       showDrawer: this.$vuetify.breakpoint.mdAndUp || this.drawer,
-      items: [
-        {title: 'Carteira', link: '/',      icon: "mdi-wallet" },
-        {title: 'Sobre',    link: '/about', icon: "mdi-information" }
+      mainItems: [
+        {title: 'Sobre', link: '/about', icon: "mdi-information"},
+        {title: 'Carteira', link: '/carteira', icon: "mdi-wallet"},
       ],
     };
   },

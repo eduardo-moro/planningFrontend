@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/carteira',
     name: 'Wallet',
     component: Wallet
   },

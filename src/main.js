@@ -6,13 +6,16 @@ import vuetify from './plugins/vuetify'
 import firebase from "firebase";
 import "@/assets/global.css"
 
-const config = {
+const config = { //firebase config
   apiKey: "<youKeyHere>",
   authDomain: "<youKeyHere>",
   databaseURL: "<youKeyHere>",
   projectId: "<youKeyHere>",
   storageBucket: "<youKeyHere>",
-  messagingSenderId: "<youKeyHere>"};firebase.initializeApp(config);
+  messagingSenderId: "<youKeyHere>"
+};
+
+firebase.initializeApp(config);
 
 Vue.config.productionTip = false
 
