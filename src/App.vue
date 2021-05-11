@@ -1,16 +1,22 @@
 <template>
   <v-app>
-    <Home />
+    <Navigation v-if="this.$store.getters.user.loggedIn"/>
+    <Authentication v-else/>
   </v-app>
 </template>
 
 <script>
-import Home from "@/views/Navigation";
-import walletsApi from "@/models/walletsApi"
+import Navigation from "@/views/Navigation";
+import Authentication from "@/views/Authentication";
 
 export default {
   name: 'App',
-  components: { Home }
+  components: { Navigation, Authentication },
+  mounted() {
+    if(this.$router.currentRoute.meta.requiresAuth === undefined) {
+      this.$router.replace({name: "Carteira"})
+    }
+  },
 };
 </script>
 

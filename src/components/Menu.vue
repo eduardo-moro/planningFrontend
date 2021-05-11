@@ -49,7 +49,7 @@
           </v-list-item>
         </template>
         <v-divider/>
-        <v-list-item class="px-2">
+        <v-list-item class="px-2" link @click="logOut">
           <v-list-item-icon>
             <v-icon>mdi-logout</v-icon>
           </v-list-item-icon>
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import firebase from "firebase";
 
 export default {
   name: 'Menu',
@@ -73,8 +74,8 @@ export default {
       drawer: false,
       showDrawer: this.$vuetify.breakpoint.mdAndUp || this.drawer,
       mainItems: [
-        {title: 'Sobre', link: '/about', icon: "mdi-information"},
-        {title: 'Carteira', link: '/carteira', icon: "mdi-wallet"},
+        {title: 'Sobre', link: '/About', icon: "mdi-information"},
+        {title: 'Carteira', link: '/Carteira', icon: "mdi-wallet"},
       ],
     };
   },
@@ -88,6 +89,14 @@ export default {
     toggleMe() {
       this.drawer = !this.drawer
     },
+    logOut() {
+      firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            this.$router.replace({name: "Login"});
+          });
+    }
   }
 }
 </script>

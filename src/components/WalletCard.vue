@@ -7,16 +7,18 @@
       dark
       :href="'#'"
   >
-    <v-card-title><h3>{{ nome }}</h3>
-      <v-spacer />
-    </v-card-title>
+    <div style="display: flex;">
+      <v-card-title class="pb-2"><h3>{{ nome }}</h3>
+        <v-spacer/>
+      </v-card-title>
+      <v-spacer/>
+      <v-icon class="mr-6">mdi-eye</v-icon>
+    </div>
     <v-divider class="my-1"></v-divider>
     <div style="display: flex;">
-      <v-card-text>saldo:</v-card-text>
-      <v-card-text><h2>R$ {{ saldo }}</h2></v-card-text>
+      <v-card-text class="pb-0">saldo:</v-card-text>
+      <v-card-text class="pb-0"><h2>R$ {{ saldo }}</h2></v-card-text>
     </div>
-    <v-card-actions>
-    </v-card-actions>
     <div class="wallet-color" :style="'background:' + cor"></div>
   </v-card>
 </template>
