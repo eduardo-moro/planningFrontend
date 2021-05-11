@@ -1,17 +1,22 @@
 <template>
   <v-card
+      link
       elevation="4"
       class="pt-2 rounded-lg mx-4 mb-4"
-      color="secondary lighten-1"
+      color="secondary"
       dark
+      :href="'#'"
   >
-    <v-card-title><h3>{{ nome }}</h3></v-card-title>
+    <v-card-title><h3>{{ nome }}</h3>
+      <v-spacer />
+    </v-card-title>
     <v-divider class="my-1"></v-divider>
     <div style="display: flex;">
-      <v-spacer/>
       <v-card-text>saldo:</v-card-text>
       <v-card-text><h2>R$ {{ saldo }}</h2></v-card-text>
     </div>
+    <v-card-actions>
+    </v-card-actions>
     <div class="wallet-color" :style="'background:' + cor"></div>
   </v-card>
 </template>

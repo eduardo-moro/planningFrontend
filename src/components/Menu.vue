@@ -1,7 +1,7 @@
 <template>
   <div>
     <span class="hidden-md-and-up">
-      <v-app-bar app color="secondary lighten-1">
+      <v-app-bar app color="secondary darken-1">
         <v-app-bar-nav-icon @click=toggleMe style="color: white"/>
         <v-app-bar-title style="color:white;">{{ appTitle }}</v-app-bar-title>
         <v-spacer/>
@@ -28,7 +28,7 @@
         v-model="drawer"
         dark
         style="z-index: 10"
-        color="secondary lighten-1"
+        color="secondary darken-1"
         disable-resize-watcher
     >
       <v-list
