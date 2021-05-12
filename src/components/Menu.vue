@@ -83,7 +83,6 @@ export default {
     toggle: function () {
       this.toggleMe();
     },
-
   },
   methods: {
     toggleMe() {
@@ -94,7 +93,7 @@ export default {
           .auth()
           .signOut()
           .then(() => {
-            this.$router.replace({name: "Login"});
+            this.$router.push({name: "Login"});
           });
     }
   }

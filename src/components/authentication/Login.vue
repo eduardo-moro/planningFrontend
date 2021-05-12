@@ -74,7 +74,7 @@ export default {
           .signInWithEmailAndPassword(this.form.email, this.form.senha)
           .then(data => {
             this.loading = false
-            this.$router.replace("/")
+            this.$router.push("/Carteira")
           })
           .catch(err => {
             this.loading = false

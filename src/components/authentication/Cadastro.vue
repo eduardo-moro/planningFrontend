@@ -89,7 +89,7 @@ export default {
               displayName: this.form.nome
             }).then(() => {
               this.loading = false
-              this.$router.replace("/Login")
+              this.$router.push("/Login")
             })
           })
           .catch(err => {

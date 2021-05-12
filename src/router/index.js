@@ -6,6 +6,7 @@ import Login from "@/components/authentication/Login";
 import Recuperar from "@/components/authentication/Recuperar";
 import Validar from "@/components/authentication/Validar";
 import WalletsList from "@/components/WalletsList";
+import {auth} from '../firebase';
 
 Vue.use(VueRouter)
 
@@ -18,7 +19,7 @@ const routes = [
     path: '/',
     redirect: {name: "Carteira"},
     meta: {
-      requiresAuth: true
+      requiresAuth: false
     }
   },
   {
@@ -65,5 +66,24 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const isAuthenticated = auth.currentUser;
+  if (requiresAuth) {
+    if (!isAuthenticated) {
+      next('/Login');
+    } else {
+      next()
+    }
+  } else {
+    if (isAuthenticated) {
+      next('/Carteira');
+    } else {
+      next()
+    }
+  }
+});
+
 
 export default router

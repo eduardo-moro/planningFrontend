@@ -1,7 +1,6 @@
 <template>
   <v-app>
-    <Navigation v-if="this.$store.getters.user.loggedIn"/>
-    <Authentication v-else/>
+    <Navigation/>
   </v-app>
 </template>
 
@@ -11,12 +10,7 @@ import Authentication from "@/views/Authentication";
 
 export default {
   name: 'App',
-  components: { Navigation, Authentication },
-  mounted() {
-    if(this.$router.currentRoute.meta.requiresAuth === undefined) {
-      this.$router.replace({name: "Carteira"})
-    }
-  },
+  components: {Navigation, Authentication},
 };
 </script>
 

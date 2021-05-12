@@ -10,9 +10,9 @@ export default new Vuex.Store({
       return data.data.data;
     }),
     user: {
-      loggedIn: false,
       data: null
-    }
+    },
+    loggedIn: false,
   },
   getters: {
     wallets: state => {
@@ -20,11 +20,14 @@ export default new Vuex.Store({
     },
     user: state => {
       return state.user
+    },
+    loggedIn: state => {
+      return state.loggedIn
     }
   },
   mutations: {
     SET_LOGGED_IN(state, value) {
-      state.user.loggedIn = value
+      state.loggedIn = value
     },
     SET_USER(state, value) {
       state.user.data = value
