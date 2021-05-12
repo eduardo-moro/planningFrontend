@@ -1,48 +1,66 @@
 <template>
   <v-card elevation="0" class="my-16">
+    <v-dialog persistent v-model="showModal" width="400">
+      <v-card>
+        <v-card-title><h2>Olá!</h2></v-card-title>
+        <v-card-text>
+          <h3 style="text-align: left">
+            Foi enviado um email de verificação para {{ this.form.email }},
+            por favor acesse seu email para verificar sua conta.
+          </h3>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer/>
+          <v-btn text @click="gotoLogin">fechar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <h1>Cadastro</h1>
     <h3>
       Já possui uma conta? <a style="color: #48f" href="/login">Fazer login</a>
     </h3>
     <br><br><br>
-    <v-text-field
-        class="mx-8"
-        outlined
-        label="Nome"
-        append-icon="mdi-account-outline"
-        placeholder="Informe seu nome"
-        :rules="[rules.required]"
-        v-model="form.nome"
-    />
-    <v-text-field
-        class="mx-8"
-        outlined
-        label="Email"
-        type="email"
-        append-icon="mdi-email-outline"
-        placeholder="Informe seu email"
-        :rules="[rules.required]"
-        v-model="form.email"
-    />
-    <v-text-field
-        class="mx-8"
-        outlined
-        label="Senha"
-        type="password"
-        append-icon="mdi-lock-outline"
-        placeholder="Informe sua senha"
-        :rules="[rules.required]"
-        v-model="form.senha"
-    />
-    <v-text-field
-        class="mx-8"
-        outlined
-        type="password"
-        label="Confirmação de senha"
-        append-icon="mdi-lock-outline"
-        placeholder="Informe sua senha Novamente"
-        :rules="[rules.required, rules.igualSenha]"
-    />
+    <v-form @submit="submit">
+      <v-text-field
+          class="mx-8"
+          outlined
+          label="Nome"
+          append-icon="mdi-account-outline"
+          placeholder="Informe seu nome"
+          :rules="[rules.required]"
+          v-model="form.nome"
+      />
+      <v-text-field
+          class="mx-8"
+          outlined
+          label="Email"
+          type="email"
+          append-icon="mdi-email-outline"
+          placeholder="Informe seu email"
+          :rules="[rules.required]"
+          v-model="form.email"
+      />
+      <v-text-field
+          class="mx-8"
+          outlined
+          label="Senha"
+          type="password"
+          append-icon="mdi-lock-outline"
+          placeholder="Informe sua senha"
+          :rules="[rules.required]"
+          v-model="form.senha"
+      />
+      <v-text-field
+          class="mx-8"
+          outlined
+          type="password"
+          label="Confirmação de senha"
+          append-icon="mdi-lock-outline"
+          placeholder="Informe sua senha Novamente"
+          :rules="[rules.required, rules.igualSenha]"
+      />
+    </v-form>
     <v-btn
         class="mx-8"
         color="primary"
@@ -65,6 +83,7 @@ export default {
   name: "Cadastro",
   data() {
     return {
+      showModal: false,
       error: "",
       rules: {
         required: value => !!value || 'Campo obrigarório',
@@ -88,14 +107,35 @@ export default {
             data.user.updateProfile({
               displayName: this.form.nome
             }).then(() => {
-              this.loading = false
-              this.$router.push("/Login")
+              console.log({"verificado": data.user.emailVerified})
+              data.user.sendEmailVerification().catch(error => {
+                alert(error);
+              }).then(() => {
+                this.openModal()
+              })
             })
           })
           .catch(err => {
             this.loading = false
             this.error = err.message
           })
+    },
+    gotoLogin() {
+      this.showModal = false
+      this.loading = false
+      this.logOut();
+      this.$router.push("/Login")
+    },
+    logOut() {
+      firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            this.$router.push({name: "Login"});
+          });
+    },
+    openModal() {
+      this.showModal = true;
     }
   }
 }

@@ -6,11 +6,10 @@
 
 <script>
 import Navigation from "@/views/Navigation";
-import Authentication from "@/views/Authentication";
 
 export default {
   name: 'App',
-  components: {Navigation, Authentication},
+  components: {Navigation},
 };
 </script>
 

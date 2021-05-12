@@ -4,7 +4,6 @@ import About from '@/views/About.vue'
 import Cadastro from "@/components/authentication/Cadastro";
 import Login from "@/components/authentication/Login";
 import Recuperar from "@/components/authentication/Recuperar";
-import Validar from "@/components/authentication/Validar";
 import WalletsList from "@/components/WalletsList";
 import {auth} from '../firebase';
 
@@ -47,11 +46,6 @@ const routes = [
     path: '/Recuperar',
     name: 'Recuperar',
     component: Recuperar
-  },
-  {
-    path: '/Ralidar',
-    name: 'Validar',
-    component: Validar
   },
   {
     path: '/Cadastro',

@@ -4,7 +4,7 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 import store from "@/store/index";
 import "@/assets/global.css"
-import { auth } from '@/firebase';
+import {auth} from '@/firebase';
 
 Vue.config.productionTip = false
 
@@ -17,7 +17,8 @@ const unsubscribe = auth
       render: h => h(App),
       created() {
         if (firebaseUser) {
-          store.dispatch('fetchUserData', firebaseUser);
+            console.log(firebaseUser.emailVerified)
+            store.dispatch('fetchUserData', firebaseUser);
         }
       }
     }).$mount('#app')

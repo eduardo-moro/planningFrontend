@@ -5,26 +5,28 @@
       Não possui uma conta? <a style="color: #48f" href="/cadastro">Cadastre-se!</a>
     </h3>
     <br><br><br>
-    <v-text-field
-        class="mx-8"
-        outlined
-        label="Email"
-        type="email"
-        append-icon="mdi-email-outline"
-        placeholder="Informe seu email"
-        :rules="[rules.required]"
-        v-model="form.email"
-    />
-    <v-text-field
-        class="mx-8"
-        outlined
-        label="Senha"
-        type="password"
-        append-icon="mdi-lock-outline"
-        placeholder="Informe sua senha"
-        :rules="[rules.required]"
-        v-model="form.senha"
-    />
+    <v-form @submit="submit">
+      <v-text-field
+          class="mx-8"
+          outlined
+          label="Email"
+          type="link"
+          append-icon="mdi-email-outline"
+          placeholder="Informe seu email"
+          :rules="[rules.required]"
+          v-model="form.email"
+      />
+      <v-text-field
+          class="mx-8"
+          outlined
+          label="Senha"
+          type="password"
+          append-icon="mdi-lock-outline"
+          placeholder="Informe sua senha"
+          :rules="[rules.required]"
+          v-model="form.senha"
+      />
+    </v-form>
     <a href="/recuperar">
       <p
           class="mr-6"
@@ -73,14 +75,27 @@ export default {
           .auth()
           .signInWithEmailAndPassword(this.form.email, this.form.senha)
           .then(data => {
-            this.loading = false
-            this.$router.push("/Carteira")
+            console.log(data.user.emailVerified)
+            if (data.user.emailVerified) {
+              this.loading = false
+              this.$router.push("/Carteira")
+              this.loading = false;
+            } else {
+              this.logOut();
+              this.error = "Email not verified."
+              this.loading = false;
+            }
           })
           .catch(err => {
             this.loading = false
             this.error = err.message
           })
-    }
+    },
+    logOut() {
+      firebase
+          .auth()
+          .signOut()
+    },
   }
 }
 </script>
