@@ -3,42 +3,56 @@
     <div v-for="(color) in colors">
       <v-btn
           class="mx-1 mb-2"
-          :elevation="selectedColor === color?10:0"
           :style="'background:' + color"
+          :elevation="selectedColor === color?3:0"
           style="display:flex; height: 40px; width: 70px"
-          @click="selectedColor = color"
-      />
+          @click="setColor(color)"
+      >
+        <v-icon color="white" style="filter: drop-shadow(1px 1px 2px black)">
+          {{ selectedColor === color ? "mdi-check" : "" }}
+        </v-icon>
+      </v-btn>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ColorPicker",
+  model: {
+    prop: "value",
+    event: "setInput"
+  },
+  props: ["value"],
   data() {
     return {
+      selectedColor: "#000000",
       colors: {
-        red: "red",
-        pink: "pink",
-        purple: "purple",
-        deeppurple: "#663399",
-        indigo: "indigo",
-        blue: "blue",
-        lightblue: "lightblue",
-        cyan: "cyan",
-        teal: "teal",
-        green: "green",
-        lightgreen: "lightgreen",
-        lime: "lime",
-        yellow: "yellow",
-        orange: "orange",
-        brown: "brown",
-        grey: "grey",
-        black: "black",
+        1: "#000000",
+        2: "#777777",
+        3: "#ffffff",
+        4: "#770000",
+        5: "#ff0000",
+        6: "#ff7700",
+        7: "#ffff00",
+        8: "#007700",
+        9: "#00ff00",
+        10: "#77ff00",
+        11: "#77ff77",
+        12: "#77ffff",
+        13: "#00ffff",
+        14: "#0077ff",
+        15: "#9400d3",
+        17: "#000077",
       },
-      selectedColor: "cyan",
     }
-  }
+  },
+  methods: {
+    setColor(color) {
+      this.selectedColor = color
+      this.$emit('setInput', color)
+    }
+  },
+
 }
 </script>
 

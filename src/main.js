@@ -5,6 +5,7 @@ import vuetify from './plugins/vuetify'
 import store from "@/store/index";
 import "@/assets/global.css"
 import {auth} from '@/firebase';
+import "./plugins/vuetify-money.js";
 
 Vue.config.productionTip = false
 

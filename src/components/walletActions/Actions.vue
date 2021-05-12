@@ -1,7 +1,6 @@
 <template>
   <div class="mx-4 my-8">
     <v-btn
-        x-large
         fab
         fixed
         bottom
@@ -22,26 +21,12 @@
         width="600px"
         v-model="openNew"
         persistent
-
+        transition="dialog-bottom-transition"
+        :fullscreen="!this.$vuetify.breakpoint.mdAndUp"
     >
-      <div style="background: white">
-        <v-btn
-            fixed
-            dark
-            top
-            right
-            icon
-            x-large
-            class="ma-4"
-            @click="openNew = false"
-        >
-          <v-icon x-large>
-            mdi-close
-          </v-icon>
-        </v-btn>
-        <new-wallet/>
-      </div>
+      <NewWallet @close="openNew = false"/>
     </v-dialog>
+
   </div>
 </template>
 
@@ -53,10 +38,9 @@ export default {
   components: {NewWallet},
   data() {
     return {
-      openNew: false
+      openNew: false,
     }
-  }
-
+  },
 }
 </script>
 

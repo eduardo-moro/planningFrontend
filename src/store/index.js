@@ -23,6 +23,9 @@ export default new Vuex.Store({
     },
     loggedIn: state => {
       return state.loggedIn
+    },
+    wallet: (state, id) => {
+      return state.wallets[id]
     }
   },
   mutations: {

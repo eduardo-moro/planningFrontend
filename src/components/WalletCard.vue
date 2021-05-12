@@ -1,11 +1,11 @@
 <template>
   <v-card
-      link
       elevation="4"
       class="pt-2 rounded-lg mx-4 mb-4"
       color="secondary"
       dark
-      :href="'#'"
+      link
+      @click="open = true"
   >
     <div style="display: flex;">
       <v-card-title class="pb-2"><h3>{{ nome }}</h3>
@@ -20,17 +20,40 @@
       <v-card-text class="pb-0"><h2>R$ {{ saldo }}</h2></v-card-text>
     </div>
     <div class="wallet-color" :style="'background:' + cor"></div>
+    <v-dialog
+        v-model="open"
+        width="600px"
+        persistent
+    >
+      <ViewWallet
+          :id="id"
+          :nome="nome"
+          :saldo="saldo"
+          :cor="cor"
+          @close="open = false"
+      />
+    </v-dialog>
   </v-card>
 </template>
 
 <script>
+import ViewWallet from "@/components/walletActions/ViewWallet";
+
 export default {
   name: "walletCard",
+  components: {ViewWallet},
   props: {
+    id: String,
     nome: String,
     saldo: String,
     cor: String
   },
+  data() {
+    return {
+      open: false
+    }
+  },
+  methods: {}
 }
 </script>
 

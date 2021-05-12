@@ -5,18 +5,15 @@
       <h2>Gerencie suas contas.</h2>
     </div>
 
-    <actions></actions>
+    <actions />
 
-    <template v-for="(value) in wallets">
+    <template v-for="(value, counter) in wallets">
       <wallet-card
-          v-if=isEmpty
+          :id='value.counter'
           :nome='value.nome'
           :saldo='value.saldo'
           :cor="value.cor"
       />
-      <template v-else>
-        <h3>Você não possui carteiras cadastradas.</h3>
-      </template>
     </template>
   </div>
 </template>
@@ -38,14 +35,6 @@ export default {
       this.wallets = data
     })
   },
-  methods: {
-    isEmpty() {
-      return empty.constructor === this.wallets
-    },
-    newWallet () {
-
-    }
-  }
 }
 </script>
 
