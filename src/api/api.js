@@ -1,8 +1,8 @@
 import axios from "axios";
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const Api = axios.create({
     method: "post",
-    baseURL: "https://testing.eba-vipxzexh.us-east-2.elasticbeanstalk.com/",
+    baseURL: "http://testing.eba-vipxzexh.us-east-2.elasticbeanstalk.com/",
     headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
