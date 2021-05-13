@@ -1,9 +1,9 @@
 import axios from "axios";
-import * as https from "node/http";
+import {Agent} from "https";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const Api = axios.create({
-    httpsAgent: new https.Agent({
+    httpsAgent: new Agent({
         rejectUnauthorized: false
     }),
     method: "post",
