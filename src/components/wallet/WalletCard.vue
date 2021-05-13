@@ -49,7 +49,7 @@
     <div style="display:flex;" class="px-4">
       <h4 style="font-weight: 300">{{ nome }}</h4>
       <v-spacer/>
-      <h2>R$ {{ saldo }}</h2>
+      <h2>R$ {{ parseFloat(saldo).toFixed( 2 ) }}</h2>
     </div>
     <v-divider v-if="ativa" class="my-1"></v-divider>
     <v-card-actions v-if="ativa">
