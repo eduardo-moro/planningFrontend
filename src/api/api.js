@@ -1,6 +1,10 @@
 import axios from "axios";
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const Api = axios.create({
+    httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+    }),
     method: "post",
     baseURL: "http://testing.eba-vipxzexh.us-east-2.elasticbeanstalk.com/",
     headers: {
