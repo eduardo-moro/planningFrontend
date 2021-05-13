@@ -6,22 +6,25 @@ import store from "@/store/index";
 import "@/assets/global.css"
 import {auth} from '@/firebase';
 import "./plugins/vuetify-money.js";
+import Api from "@/api/api";
 
 Vue.config.productionTip = false
 
 const unsubscribe = auth
   .onAuthStateChanged((firebaseUser) => {
     new Vue({
-      router,
-      store,
-      vuetify,
-      render: h => h(App),
-      created() {
-        if (firebaseUser) {
-            console.log(firebaseUser.emailVerified)
-            store.dispatch('fetchUserData', firebaseUser);
+        Api,
+        router,
+        store,
+        vuetify,
+        render: h => h(App),
+        created() {
+            if (firebaseUser) {
+                localStorage.setItem("authorization", firebaseUser.getIdToken())
+                localStorage.setItem("userId",  firebaseUser.uid)
+                store.dispatch('fetchUserData', firebaseUser);
+            }
         }
-      }
     }).$mount('#app')
     unsubscribe();
   });

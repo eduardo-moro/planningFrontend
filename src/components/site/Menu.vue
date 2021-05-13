@@ -9,11 +9,11 @@
 
           <v-btn
               :key="index"
-              link
               icon
               text
               dark
-              :href="item.link"
+              class="mr-2"
+              :to="item.link"
           >
             <v-icon>{{ item.icon }}</v-icon>
           </v-btn>
@@ -39,7 +39,7 @@
           <v-icon>mdi-currency-usd</v-icon>
         <v-divider />
         <template v-for="(item, index) in mainItems">
-          <v-list-item link class="px-2" :key="index" :href="item.link">
+          <v-list-item link class="px-2" :key="index" :to="item.link">
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
@@ -74,7 +74,8 @@ export default {
       drawer: false,
       showDrawer: this.$vuetify.breakpoint.mdAndUp || this.drawer,
       mainItems: [
-        {title: 'Sobre', link: '/About', icon: "mdi-information"},
+        {title: 'Sobre', link: '/Sobre', icon: "mdi-information"},
+        {title: 'Transações', link: '/Transacoes', icon: "mdi-swap-horizontal"},
         {title: 'Carteira', link: '/Carteira', icon: "mdi-wallet"},
       ],
     };

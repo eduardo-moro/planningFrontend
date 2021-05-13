@@ -20,7 +20,7 @@
 
 
 <script>
-import Header from "@/components/Header";
+import Header from "@/components/site/Header";
 
 export default {
   name: 'Home',

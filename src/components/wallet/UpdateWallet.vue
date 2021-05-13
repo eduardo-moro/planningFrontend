@@ -1,7 +1,8 @@
 <template>
   <v-card>
     <v-card-title style="background: #5894ff" class="pb-0">
-      <h3 style="color:white;">Criar nova carteira</h3>
+      <h3 v-if="!update" style="color:white;">Criar nova carteira</h3>
+      <h3 v-else style="color:white;">Editar {{ nome }}</h3>
       <v-spacer/>
       <v-btn
           dark
@@ -16,9 +17,9 @@
     <div>
       <v-form class="px-4" @submit="() => {}">
         <br>
+        <h3 style="color: tomato;">{{ error }}</h3>
         <label>Nome da carteira</label>
         <v-text-field
-            label="Nome da carteira"
             placeholder="Informe o nome da sua nova carteira."
             outlined
             clearable
@@ -29,7 +30,6 @@
         <label>Saldo da carteira</label>
         <div style="display: flex">
           <VuetifyNumber
-              label="Saldo da carteira"
               placeholder="Informe o saldo da carteira."
               outlined
               clearable
@@ -44,6 +44,7 @@
       </v-form>
       <color-picker v-model="form.cor"/>
     </div>
+    <br><br>
     <v-card-actions>
       <v-spacer/>
       <v-btn
@@ -58,15 +59,30 @@
 </template>
 
 <script>
-import ColorPicker from "@/components/ColorPicker";
+import ColorPicker from "@/components/wallet/ColorPicker";
 import VuetifyNumber from "@/components/number/VuetifyNumber";
 import walletsApi from "@/models/walletsApi";
 
 export default {
-  name: "NewWallet",
+  name: "UpdateWallet",
   components: {VuetifyNumber, ColorPicker},
+  props: {
+    id: String,
+    nome: String,
+    saldo: String,
+    cor: String,
+    update: Boolean
+  },
   data() {
     return {
+      form: {
+        id: this.id,
+        nome: this.nome || "",
+        saldo: this.saldo || 0.00,
+        cor: this.cor || "#000000",
+        ativa: true,
+      },
+      error: '',
       rules: {
         required: value => !!value || 'Campo obrigarório',
       },
@@ -77,20 +93,35 @@ export default {
         length: 11,
         precision: 2
       },
-      form: {
-        nome: "",
-        saldo: "0.00",
-        cor: "#000000"
-      }
     }
   },
   methods: {
     close() {
       this.$emit('close')
     },
+    closeAndUpdate() {
+      this.$emit('closeAndUpdate')
+    },
     submit() {
-      walletsApi.createWallet(this.form)
-
+      if (this.form.nome !== '') {
+        if (this.update) {
+          walletsApi.updateWallet(this.form).then(data => {
+            if (data) {
+              this.$store.dispatch('updateWallets')
+              this.closeAndUpdate()
+            }
+          })
+        } else {
+          walletsApi.createWallet(this.form).then(data => {
+            if (data) {
+              this.$store.dispatch('updateWallets')
+              this.closeAndUpdate()
+            }
+          })
+        }
+      } else {
+        this.error = ("Nome da carteira não pode ser vazio.")
+      }
     }
   }
 }

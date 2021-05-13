@@ -18,7 +18,7 @@
 
     <h1>Cadastro</h1>
     <h3>
-      Já possui uma conta? <a style="color: #48f" href="/login">Fazer login</a>
+      Já possui uma conta? <v-btn text style="color: #48f" to="/login">Fazer login</v-btn>
     </h3>
     <br><br><br>
     <v-form @submit="submit">
@@ -107,7 +107,6 @@ export default {
             data.user.updateProfile({
               displayName: this.form.nome
             }).then(() => {
-              console.log({"verificado": data.user.emailVerified})
               data.user.sendEmailVerification().catch(error => {
                 alert(error);
               }).then(() => {

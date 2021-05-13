@@ -21,26 +21,35 @@
         width="600px"
         v-model="openNew"
         persistent
-        transition="dialog-bottom-transition"
+        :transition="!this.$vuetify.breakpoint.mdAndUp?'dialog-bottom-transition':''"
         :fullscreen="!this.$vuetify.breakpoint.mdAndUp"
     >
-      <NewWallet @close="openNew = false"/>
+      <UpdateWallet @close="close" @closeAndUpdate="closeAndUpdate(true)"/>
     </v-dialog>
 
   </div>
 </template>
 
 <script>
-import NewWallet from "@/components/walletActions/NewWallet";
+import UpdateWallet from "@/components/wallet/UpdateWallet";
 
 export default {
   name: "Actions",
-  components: {NewWallet},
+  components: {UpdateWallet},
   data() {
     return {
       openNew: false,
     }
   },
+  methods: {
+    close() {
+      this.openNew = false
+    },
+    closeAndUpdate() {
+      this.openNew = false
+      this.$emit("update")
+    }
+  }
 }
 </script>
 

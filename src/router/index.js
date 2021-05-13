@@ -5,13 +5,10 @@ import Cadastro from "@/components/authentication/Cadastro";
 import Login from "@/components/authentication/Login";
 import Recuperar from "@/components/authentication/Recuperar";
 import WalletsList from "@/components/WalletsList";
-import {auth} from '../firebase';
+import {auth} from '@/firebase';
+import TransactionsList from "@/components/TransactionsList";
 
 Vue.use(VueRouter)
-
-if (true) {
-
-}
 
 const routes = [
   {
@@ -30,8 +27,16 @@ const routes = [
     }
   },
   {
-    path: '/About',
-    name: 'About',
+    path: '/Transacoes',
+    name: 'Transacoes',
+    component: TransactionsList,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/Sobre',
+    name: 'Sobre',
     component: About,
     meta: {
       requiresAuth: true

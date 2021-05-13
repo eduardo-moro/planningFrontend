@@ -1,13 +1,25 @@
 import axios from "axios";
 
 const Api = axios.create({
+    method: "post",
     baseURL: "http://testing.eba-vipxzexh.us-east-2.elasticbeanstalk.com/",
     headers: {
-        authentication: {
-            firebaseToken: ""
-        },
-        userId: ""
+        'Content-Type': 'application/json',
+        'userid': "",
+        'authorization': {},
     }
-})
+});
 
-export default Api;
+Api.interceptors.request.use(
+    function (config) {
+        config.headers["authorization"] = 'Bearer ' + localStorage.getItem("authorization");
+        config.headers["userid"] =  localStorage.getItem("userId");
+        return config;
+    },
+    function (error) {
+        return Promise.reject(error);
+    }
+);
+
+
+export default Api

@@ -2,7 +2,7 @@
   <v-card elevation="0" class="my-16">
     <h1>Login</h1>
     <h3>
-      Não possui uma conta? <a style="color: #48f" href="/cadastro">Cadastre-se!</a>
+      Não possui uma conta? <v-btn style="color: #48f" text to="/cadastro">Cadastre-se!</v-btn>
     </h3>
     <br><br><br>
     <v-form @submit="submit">
@@ -75,7 +75,6 @@ export default {
           .auth()
           .signInWithEmailAndPassword(this.form.email, this.form.senha)
           .then(data => {
-            console.log(data.user.emailVerified)
             if (data.user.emailVerified) {
               this.loading = false
               this.$router.push("/Carteira")
