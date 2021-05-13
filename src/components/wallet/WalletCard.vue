@@ -38,6 +38,13 @@
           @closeAndUpdate="update"
       />
     </v-dialog>
+    <v-dialog
+        v-model="openDelete"
+        width="600px"
+        persistent
+    >
+      <soft-delete @close="deleteUpdate" :id="id" :nome="nome" :saldo="saldo" :cor="cor"/>
+    </v-dialog>
 
     <div style="display:flex;" class="px-4">
       <h4 style="font-weight: 300">{{ nome }}</h4>
@@ -49,7 +56,7 @@
       <v-spacer/>
       <v-btn
           icon
-          @click="softDelete"
+          @click="openDelete = true"
           class="mr-6 mt-4"
       >
         <v-icon>mdi-delete</v-icon>
@@ -76,11 +83,11 @@
 <script>
 import ViewWallet from "@/components/wallet/ViewWallet";
 import UpdateWallet from "@/components/wallet/UpdateWallet";
-import walletsApi from "@/models/walletsApi";
+import SoftDelete from "@/components/wallet/SoftDelete";
 
 export default {
   name: "walletCard",
-  components: {ViewWallet, UpdateWallet},
+  components: {SoftDelete, ViewWallet, UpdateWallet},
   props: {
     id: String,
     nome: String,
@@ -91,7 +98,8 @@ export default {
   data() {
     return {
       open: false,
-      openUpdate: false
+      openUpdate: false,
+      openDelete: false
     }
   },
   methods: {
@@ -99,14 +107,9 @@ export default {
       this.openUpdate = false;
       this.$emit('update')
     },
-    softDelete() {
-      if (confirm("Tem ecerteza de que deseja inativar a carteira " + this.nome + "?")) {
-        walletsApi.deleteWallet(this.id).then(data => {
-          if (data) {
-            this.$emit('update')
-          }
-        })
-      }
+    deleteUpdate() {
+      this.openDelete = false;
+      this.$emit('update')
     }
   }
 }

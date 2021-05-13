@@ -1,10 +1,9 @@
 <template>
   <v-card>
-    <v-card-title style="background: #5894ff" class="pb-0">
-      <h3 style="color:white;">Nova Transação</h3>
+    <v-card-title class="pb-0">
+      <h3>Nova Transação</h3>
       <v-spacer/>
       <v-btn
-          dark
           icon
           @click="close"
       >

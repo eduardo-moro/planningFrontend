@@ -18,9 +18,9 @@ const unsubscribe = auth
         store,
         vuetify,
         render: h => h(App),
-        created() {
+        async created() {
             if (firebaseUser) {
-                localStorage.setItem("authorization", firebaseUser.getIdToken())
+                localStorage.setItem("authorization", await firebaseUser.getIdToken())
                 localStorage.setItem("userId",  firebaseUser.uid)
                 store.dispatch('fetchUserData', firebaseUser);
             }

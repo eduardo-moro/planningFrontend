@@ -5,6 +5,7 @@
           class="mx-1 mb-2"
           :style="'background:' + color"
           :elevation="selectedColor === color?3:0"
+          :outlined="color === '#fcfcfc'"
           style="display:flex; height: 40px; width: 70px"
           @click="setColor(color)"
       >
@@ -29,7 +30,7 @@ export default {
       colors: {
         1: "#000000",
         2: "#777777",
-        3: "#ffffff",
+        3: "#fcfcfc",
         4: "#770000",
         5: "#ff0000",
         6: "#ff7700",

@@ -1,11 +1,10 @@
 <template>
   <v-card>
-    <v-card-title style="background: #5894ff" class="pb-0">
-      <h3 v-if="!update" style="color:white;">Criar nova carteira</h3>
-      <h3 v-else style="color:white;">Editar {{ nome }}</h3>
+    <v-card-title class="pb-0">
+      <h3 v-if="!update">Criar nova carteira</h3>
+      <h3 v-else >Editar {{ nome }}</h3>
       <v-spacer/>
       <v-btn
-          dark
           icon
           @click="close"
       >
