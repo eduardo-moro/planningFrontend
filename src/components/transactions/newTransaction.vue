@@ -67,7 +67,7 @@
           text
           @click="submit(false)"
       >
-        agendar
+        Agendar
       </v-btn>
       <v-btn
           color="primary"
@@ -123,9 +123,8 @@ export default {
       this.form.finalizado = closed;
       this.form.data = new Date().toDateString();
       transactionsApi.createTransactions(this.form).then(data => {
-        console.log(data)
+        this.$emit("update")
       })
-      this.$emit("close")
     },
     setWallets() {
       let retorno = [];

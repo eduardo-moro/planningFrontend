@@ -44,6 +44,7 @@
             <v-card-text class="pa-0">{{ item.wallet }}</v-card-text>
             <v-card-text class="pa-0"><h3 style="text-align: right">R$ {{ item.valor }}</h3></v-card-text>
           </div>
+        <v-btn color="success"  v-if="!item.finalizado" @click="finalizarTransacao(item)">finalizar</v-btn>
         </v-list-item-content>
       </div>
     </v-list>
@@ -55,7 +56,7 @@
         :transition="!this.$vuetify.breakpoint.mdAndUp?'dialog-bottom-transition':''"
         :fullscreen="!this.$vuetify.breakpoint.mdAndUp"
     >
-      <new-transaction @close="openNew = false"/>
+      <new-transaction @close="openNew = false" @update="forceRerender"/>
     </v-dialog>
 
     <v-btn
@@ -115,6 +116,7 @@ export default {
       }
     },
     forceRerender() {
+      this.openNew = false
       this.loading = true
       transactionsApi.listTransactions().then(data => {
         this.transactions = this.separate(data.data.data);
@@ -164,6 +166,17 @@ export default {
       }
       return retorno
     },
+    finalizarTransacao(item) {
+      let send = {};
+      send.id = item._id;
+      send.finalizado = true;
+      send.valor = item.valor;
+      send.WalletId = item.WalletId;
+      send.tipo = item.tipo;
+      transactionsApi.updateTransactions(send).then(data => {
+          this.forceRerender()
+      })
+    }
   },
 }
 </script>

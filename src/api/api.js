@@ -2,7 +2,7 @@ import axios from "axios";
 
 const Api = axios.create({
     method: "post",
-    baseURL: "http://testing.eba-vipxzexh.us-east-2.elasticbeanstalk.com/",
+    baseURL: "http://localhost:5000/",
     headers: {
         'Content-Type': 'application/json',
         'userid': "",
