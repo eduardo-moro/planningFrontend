@@ -7,7 +7,7 @@ const Api = axios.create({
         rejectUnauthorized: false
     }),
     method: "post",
-    baseURL: "http://testing.eba-vipxzexh.us-east-2.elasticbeanstalk.com/",
+    baseURL: "https://planning-backend.azurewebsites.net/",
     headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
